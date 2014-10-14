@@ -1,3 +1,30 @@
+/*
+ * Copyright (c) 2014, Frederic Dubouchet
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *     * Neither the name of the Calodox nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY Frederic Dubouchet ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Frederic DUBOUCHET BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -14,7 +41,7 @@ int main(int ac, char** av) {
 	std::string input_video = "";
 	std::string input_cl = "./video.cl";
 	bool gpu = true;
-	bool color = false;
+	bool color = true;
 	unsigned int device = 0;
 	try {
 		options_description desc("Allowed options");
@@ -25,7 +52,7 @@ int main(int ac, char** av) {
 		("input-cl,c", value<std::string>(), "input cl file")
 		("cpu", "OpenCL with CPU")
 		("device,d", value<unsigned int>(), "OpenCL device")
-		("color", "color mode")
+		("black-white,b", "black and white mode")
 		;
 		variables_map vm;
 		store(command_line_parser(ac, av).options(desc).run(), vm);
@@ -50,8 +77,8 @@ int main(int ac, char** av) {
 		if (vm.count("device")) {
 			device = vm["device"].as<unsigned int>();
 		}
-		if (vm.count("color")) {
-			color = true;
+		if (vm.count("black-white")) {
+			color = false;
 		}
 		std::cout
 		<< "color mode      : "

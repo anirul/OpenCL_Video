@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(testVideo)
+project(OpenCL_Video)
 
 include("cmake/FindCXXFeatures.cmake")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX11_COMPILER_FLAGS}")
@@ -70,7 +70,7 @@ find_library(
 )
 
 add_executable(
-    testVideo
+    OpenCL_Video
     ${PROJECT_SOURCE_DIR}/sources/main.cpp
 	${PROJECT_SOURCE_DIR}/sources/glut_win.cpp
 	${PROJECT_SOURCE_DIR}/sources/glut_win.hpp
@@ -81,7 +81,7 @@ add_executable(
 )
 
 target_link_libraries(
-    testVideo
+    OpenCL_Video
     ${OPENCV_CORE_LIB}
     ${OPENCV_GPU_LIB}
     ${OPENCV_HIGHGUI_LIB}
