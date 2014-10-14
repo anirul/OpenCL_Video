@@ -19,3 +19,27 @@ You may need these dependencies to compile and use this:
   - system
   - date_time
   - chrono
+
+## Build
+
+```
+> git clone git@github.com:anirul/OpenCL_Video.git
+> cd OpenCL_Video
+> mkdir build
+> cd build
+> cmake ..
+> make
+```
+
+## Usage
+
+```
+> ./OpenCL_Video -h
+Allowed options:
+  -h [ --help ]            produce help message
+  -i [ --input-video ] arg input video file
+  -c [ --input-cl ] arg    input cl file
+  --cpu                    OpenCL with CPU
+  -d [ --device ] arg      OpenCL device
+  -b [ --black-white ]     black and white mode
+```
