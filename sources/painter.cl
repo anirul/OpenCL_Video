@@ -1,6 +1,6 @@
 // simple kernel that copy in into out
 
-#define radius 4
+#define radius 3
 #define power_radius (radius * radius)
 #define intensity_level 20
 
@@ -13,8 +13,6 @@ __kernel void video_image(
         CLK_FILTER_NEAREST |
         CLK_ADDRESS_CLAMP;
     const int2 d = (int2)(get_global_id(0), get_global_id(1));
-    const int2 range = (int2)(get_global_size(0), get_global_size(1));
-    float4 out_col;
     int intensity_count[intensity_level];
     float4 average_color[intensity_level];
     // cleanup
@@ -52,7 +50,7 @@ __kernel void video_image(
     }
     // step 3
     // write the final color
-    out_col = average_color[max_index] / max_level;
+    float4 out_col = average_color[max_index] / max_level;
     out_col.w = 1.0f;
     write_imagef(out, d, out_col);
 }
