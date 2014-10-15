@@ -5,6 +5,16 @@ video or a webcam and then pass the video to OpenCL and use a predefined kernel
 on every pixel of the video and render it to the screen. It uses cmake and
 C++11.
 
+## Example
+
+Here is an example call using a movie from the blender foundation.
+
+```
+> ./OpenCL_Video -i ~/Movies/big_buck_bunny_480p_surround-fix.avi -c ./sources/painter.cl
+```
+
+[painter example](https://raw.githubusercontent.com/anirul/OpenCL_Video/master/pictures/big_bunny_painter.png)
+
 ## Dependencies
 
 You may need these dependencies to compile and use this:
