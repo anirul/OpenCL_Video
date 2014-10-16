@@ -32,8 +32,8 @@ __kernel void video_image(
                 (dot(color_element, (float4)(1.0f, 1.0f, 1.0f, 0.0f)) / 3.0f) *
                 intensity_level;
             current_intensity = (current_intensity >= intensity_level) ?
-                current_intensity :
-                current_intensity - 1;
+                intensity_level - 1 :
+                current_intensity;
             intensity_count[current_intensity] += 1;
             average_color[current_intensity] += color_element;
         }
