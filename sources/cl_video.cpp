@@ -29,12 +29,12 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <chrono>
 #define __CL_ENABLE_EXCEPTIONS
 #include <CL/cl.hpp>
 #ifdef __linux__
 #include <GL/glx.h>
 #endif
-#include <boost/date_time/posix_time/posix_time.hpp>
 
 #include "cl_video.hpp"
 
@@ -195,12 +195,10 @@ void cl_video::prepare(const std::vector<char>& input) {
 	queue_.finish();
 }
 
-boost::posix_time::time_duration cl_video::run(std::vector<char>& output) {
-	boost::posix_time::ptime before;
-	boost::posix_time::ptime after;
+std::chrono::duration<double> cl_video::run(std::vector<char>& output) {
 	if (output.size() != total_size_)
 		output.resize(total_size_);
-	before = boost::posix_time::microsec_clock::universal_time();
+	auto before = std::chrono::system_clock::now();
 	// make the computation
 	err_ = queue_.enqueueNDRangeKernel(kernel_,
 									   cl::NullRange,
@@ -209,7 +207,7 @@ boost::posix_time::time_duration cl_video::run(std::vector<char>& output) {
 									   NULL,
 									   &event_);
 	queue_.finish();
-	after = boost::posix_time::microsec_clock::universal_time();
+	auto after = std::chrono::system_clock::now();
 	err_ = queue_.enqueueReadImage(cl_image_output_,
 								   CL_TRUE,
 								   origin_,

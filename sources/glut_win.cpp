@@ -34,7 +34,6 @@
 #ifdef __APPLE__
 #include <glut/glut.h>
 #endif
-#include <boost/bind.hpp>
 
 #include "glut_win.hpp"
 

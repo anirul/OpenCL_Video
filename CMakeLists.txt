@@ -15,6 +15,7 @@ if(APPLE)
 
     include_directories(
 		/opt/local/include
+        /usr/local/include
         ${PROJECT_SOURCE_DIR}/thirdparty
     )
 

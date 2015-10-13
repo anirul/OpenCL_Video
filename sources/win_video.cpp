@@ -28,6 +28,8 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <chrono>
+#include <iostream>
 #ifdef __linux__
 #include <GL/glut.h>
 #include <GL/gl.h>
@@ -40,7 +42,6 @@
 #endif
 #define __CL_ENABLE_EXCEPTIONS
 #include <CL/cl.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
 
 #include "cl_video.hpp"
 #include "glut_win.hpp"
@@ -63,7 +64,7 @@ cl_file_(cl_file),
 callback_(callback)
 {
 	current_image_ = initial_image;
-	best_time_ = boost::posix_time::minutes(60);
+    best_time_ = std::chrono::minutes(60);
 }
 
 win_video::~win_video() {}
@@ -106,15 +107,14 @@ void win_video::display() {
 void win_video::idle() {
 	glFinish();
 	if (video_) {
-		boost::posix_time::time_duration actual_time;
 		// get the next frame
 		callback_(current_image_);
 		video_->prepare(current_image_);
-		actual_time = video_->run(current_image_);
+		auto actual_time = video_->run(current_image_);
 		if (actual_time < best_time_) best_time_ = actual_time;
 		std::cout
-		<< "\rCompute time    : " << actual_time
-		<< " best " << best_time_;
+		<< "\rCompute time    : " << actual_time.count()
+		<< " best " << best_time_.count();
 		std::cout.flush();
 	}
 	glBindTexture(GL_TEXTURE_2D, texture_id_);

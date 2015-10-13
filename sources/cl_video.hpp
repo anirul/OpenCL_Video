@@ -28,6 +28,7 @@
 #define CL_VIDEO_HEADER_DEFINED
 
 #include <string>
+#include <chrono>
 
 #include <CL/cl.hpp>
 
@@ -57,7 +58,7 @@ public:
 	void setup(const std::pair<unsigned int, unsigned int>& s,
 			   unsigned int nb_col);
 	void prepare(const std::vector<char>& input);
-	boost::posix_time::time_duration run(std::vector<char>& output);
+	std::chrono::duration<double> run(std::vector<char>& output);
 };
 
 #endif // CL_VIDEO_HEADER_DEFINED

@@ -30,7 +30,7 @@
 #include <vector>
 #include <string>
 #include <functional>
-#include <boost/date_time/posix_time/posix_time.hpp>
+#include <chrono>
 
 #include "cl_video.hpp"
 #include "glut_win.hpp"
@@ -45,7 +45,7 @@ private:
 	unsigned int device_;
 	unsigned int texture_id_;
 	std::string cl_file_;
-	boost::posix_time::time_duration best_time_;
+    std::chrono::duration<double> best_time_;
 	std::function<bool (std::vector<char>&)> callback_;
 public:
 	// constructor
